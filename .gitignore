@@ -1,0 +1,14 @@
+# Virtual Environnements
+.venv/
+env/
+venv/
+
+# Caches Python & Mypy
+__pycache__/
+*.pyc
+.mypy_cache/
+.pytest_cache/
+
+# Generated Outputs
+data/output/*
+!data/output/.gitkeep
