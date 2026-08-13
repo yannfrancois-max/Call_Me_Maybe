@@ -1,6 +1,6 @@
 .PHONY: install run debug clean lint
 
-export UV_CACHE_DIR ?= /goinfre/yafranco/.cache/uv
+export UV_CACHE_DIR ?= /goinfre/$(USER)/.cache/uv
 
 install:
 		uv sync
