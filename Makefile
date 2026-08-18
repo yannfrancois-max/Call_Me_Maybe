@@ -1,8 +1,14 @@
-.PHONY: install run debug clean lint
+.PHONY: install run debug clean fclean re lint
 
 export UV_CACHE_DIR ?= /goinfre/$(USER)/.cache/uv
+GOINFRE_VENV := /goinfre/$(USER)/Call_Me_Maybe_venv
 
 install:
+		mkdir -p $(GOINFRE_VENV)
+		@if [ ! -L .venv ] || [ "$$(readlink .venv)" != "$(GOINFRE_VENV)" ]; then \
+			rm -rf .venv; \
+			ln -s $(GOINFRE_VENV) .venv; \
+		fi
 		uv sync
 
 run:
@@ -16,6 +22,13 @@ clean:
 		find . -type d -name ".mypy_cache" -exec rm -rf {} +
 		find . -type d -name ".pytest_cache" -exec rm -rf {} +
 		rm -rf data/output/*
+
+re: fclean install
+
+fclean: clean
+		rm -rf .venv
+		rm -rf $(GOINFRE_VENV)
+		uv cache clean
 
 lint:
 		uv run flake8 src
